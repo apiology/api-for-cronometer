@@ -6,7 +6,10 @@ from typing import List
 
 def parse_argv(argv: List[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument('_', nargs='*')
+    # https://docs.python.org/3/library/argparse.html
+    # https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser.add_subparsers
+    subparsers = parser.add_subparsers(dest='operation')
+    subparsers.add_parser('update', help='Update macronutrient targets')
     return parser.parse_args(argv[1:])
 
 

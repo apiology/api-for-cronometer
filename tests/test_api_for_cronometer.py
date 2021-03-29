@@ -46,10 +46,11 @@ def test_parse_argv_run_simple():
 
 
 def test_cli_help():
-    expected_help = """usage: api_for_cronometer [-h] [_ ...]
+    expected_help = """usage: api_for_cronometer [-h] {update} ...
 
 positional arguments:
-  _
+  {update}
+    update    Update macronutrient targets
 
 optional arguments:
   -h, --help  show this help message and exit
