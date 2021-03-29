@@ -57,4 +57,7 @@ optional arguments:
     # older python versions show arguments like this:
     alt_expected_help = expected_help.replace('[_ ...]', '[_ [_ ...]]')
     actual_help = subprocess.check_output(['api_for_cronometer', '--help']).decode('utf-8')
-    assert actual_help in [expected_help, alt_expected_help]
+    try:
+        assert actual_help == expected_help
+    except AssertionError:
+        assert actual_help == alt_expected_help
