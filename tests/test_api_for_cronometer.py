@@ -39,17 +39,19 @@ def test_process_args():
                                           'your code into api_for_cronometer.cli.process_args')])
 
 
+# @pytest.mark.skip(reason="working on main help test first")
 def test_parse_argv_run_simple():
-    argv = ['api_for_cronometer', 'whatever']
+    argv = ['api_for_cronometer', 'op1', '123']
     args = parse_argv(argv)
-    assert vars(args) == {'_': ['whatever']}
+    assert vars(args) == {'operation': 'op1', 'arg1': 123}
 
 
 def test_cli_help():
-    expected_help = """usage: api_for_cronometer [-h] [_ ...]
+    expected_help = """usage: api_for_cronometer [-h] {op1} ...
 
 positional arguments:
-  _
+  {op1}
+    op1       Do some kind of operation
 
 optional arguments:
   -h, --help  show this help message and exit
@@ -57,4 +59,7 @@ optional arguments:
     # older python versions show arguments like this:
     alt_expected_help = expected_help.replace('[_ ...]', '[_ [_ ...]]')
     actual_help = subprocess.check_output(['api_for_cronometer', '--help']).decode('utf-8')
-    assert actual_help in [expected_help, alt_expected_help]
+    try:
+        assert actual_help == expected_help
+    except AssertionError:
+        assert actual_help == alt_expected_help
