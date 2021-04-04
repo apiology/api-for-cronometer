@@ -250,10 +250,6 @@ ensure_python_editable() {
   pip install -e .
 }
 
-ensure_python_editable() {
-  pip install -e .
-}
-
 install_shellcheck() {
   if [ "$(uname)" == "Darwin" ]
   then
@@ -269,6 +265,17 @@ ensure_shellcheck() {
   if ! type shellcheck >/dev/null 2>&1
   then
     install_package shellcheck
+  fi
+}
+
+ensure_overcommit() {
+  # don't run if we're in the middle of a cookiecutter child project
+  # test, or otherwise don't have a Git repo to install hooks into...
+  if [ -d .git ]
+  then
+    bundle exec overcommit --install
+  else
+    >&2 echo 'Not in a git repo; not installing git hooks'
   fi
 }
 
@@ -293,3 +300,5 @@ ensure_python_requirements
 ensure_python_editable
 
 ensure_shellcheck
+
+ensure_overcommit
