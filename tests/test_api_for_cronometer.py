@@ -39,10 +39,11 @@ def test_process_args():
                                           'your code into api_for_cronometer.cli.process_args')])
 
 
+# @pytest.mark.skip(reason="working on main help test first")
 def test_parse_argv_run_simple():
-    argv = ['api_for_cronometer', 'whatever']
+    argv = ['api_for_cronometer', 'op1', '123']
     args = parse_argv(argv)
-    assert vars(args) == {'_': ['whatever']}
+    assert vars(args) == {'operation': 'op1', 'arg1': 123}
 
 
 def test_cli_help():
