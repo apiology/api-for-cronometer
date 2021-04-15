@@ -46,6 +46,33 @@ def test_parse_argv_run_simple():
     assert vars(args) == {'operation': 'op1', 'arg1': 123}
 
 
+def test_cli_update_help():
+    expected_help = """usage: api_for_cronometer update-macro-targets [-h] \
+[--target-energy TARGET_KCALS,MAX_KCALS] \
+[--protein TARGET_GRAMS,MAX_GRAMS] \
+[--net-carbs TARGET_GRAMS,MAX_GRAMS] \
+[--fat TARGET_GRAMS,MAX_GRAMS] ...
+
+Update macronutrient targets
+
+optional arguments:
+  -h, --help  show this help message and exit
+  -e, --energy  Energy in (kilo-)calories (target and max, comma separated)
+  -p, --protein  Protein in grams (target and max, comma separated)
+  -n, --net-carbs  Net carbs in grams (target and max, comma separated)
+  -f, --fat  Fat in grams (target and max, comma separated)
+"""
+    # older python versions show arguments like this:
+    alt_expected_help = expected_help.replace('[_ ...]', '[_ [_ ...]]')
+    actual_help = subprocess.check_output(['api_for_cronometer',
+                                           'update',
+                                           '--help']).decode('utf-8')
+    try:
+        assert actual_help == expected_help
+    except AssertionError:
+        assert actual_help == alt_expected_help
+
+
 def test_cli_help():
     expected_help = """usage: api_for_cronometer [-h] {update} ...
 
