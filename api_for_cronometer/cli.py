@@ -9,8 +9,17 @@ def parse_argv(argv: List[str]) -> argparse.Namespace:
     # https://docs.python.org/3/library/argparse.html
     # https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser.add_subparsers
     subparsers = parser.add_subparsers(dest='operation')
-    update_parser = subparsers.add_parser('update', help='Update macronutrient targets')
-    update_parser.add_argument('arg1', type=int, help='arg1 help')
+    update_parser = subparsers.add_parser('update-macro-targets',
+                                          description='Update macronutrient targets',
+                                          help='Update macronutrient targets')
+    update_parser.add_argument('--energy', metavar='TARGET_KCALS,MAX_KCALS', type=str,
+                               help='Energy in (kilo-)calories (target and max, comma separated)')
+    update_parser.add_argument('--protein', metavar='TARGET_GRAMS,MAX_GRAMS', type=str,
+                               help='Protein in grams (target and max, comma separated)')
+    update_parser.add_argument('--net-carbs', metavar='TARGET_GRAMS,MAX_GRAMS', type=str,
+                               help='Net carbs in grams (target and max, comma separated)')
+    update_parser.add_argument('--fat', metavar='TARGET_GRAMS,MAX_GRAMS', type=str,
+                               help='Fat in grams (target and max, comma separated)')
     return parser.parse_args(argv[1:])
 
 
