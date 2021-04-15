@@ -74,7 +74,8 @@ optional arguments:
     # older python versions show arguments like this:
     actual_help = subprocess.check_output(['api_for_cronometer',
                                            'update-macro-targets',
-                                           '--help']).decode('utf-8')
+                                           '--help'],
+                                          env=env).decode('utf-8')
     assert actual_help == expected_help
 
 
