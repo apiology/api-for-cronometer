@@ -54,8 +54,7 @@ def test_cli_update_help():
     env.update(request_long_lines)
     expected_help = """\
 usage: api_for_cronometer update-macro-targets [-h] [--energy TARGET_KCALS,MAX_KCALS] \
-[--protein TARGET_GRAMS,MAX_GRAMS]
-                                               [--net-carbs TARGET_GRAMS,MAX_GRAMS] \
+[--protein TARGET_GRAMS,MAX_GRAMS] [--net-carbs TARGET_GRAMS,MAX_GRAMS] \
 [--fat TARGET_GRAMS,MAX_GRAMS]
 
 Update macronutrient targets
