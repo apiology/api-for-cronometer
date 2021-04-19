@@ -1,3 +1,5 @@
 [flake8]
 exclude = docs
 max_line_length = 100
+application-import-names = api_for_cronometer,tests
+import-order-style = google

@@ -2,13 +2,15 @@
 
 """Tests for `api_for_cronometer` package."""
 
-import pytest
-
 # from api_for_cronometer import api_for_cronometer
 import argparse
+import os
 import subprocess
-from unittest.mock import patch, call
-from api_for_cronometer.cli import process_args, parse_argv
+from unittest.mock import call, patch
+
+import pytest
+
+from api_for_cronometer.cli import parse_argv, process_args
 
 
 @pytest.fixture
@@ -46,7 +48,32 @@ def test_parse_argv_run_simple():
     assert vars(args) == {'operation': 'op1', 'arg1': 123}
 
 
+def test_cli_op1_help():
+    request_long_lines = {'COLUMNS': '999', 'LINES': '25'}
+    env = {}
+    env.update(os.environ)
+    env.update(request_long_lines)
+    expected_help = """usage: api_for_cronometer op1 [-h] arg1
+
+Do some kind of operation
+
+positional arguments:
+  arg1        arg1 help
+
+optional arguments:
+  -h, --help  show this help message and exit
+"""
+    # older python versions show arguments like this:
+    actual_help = subprocess.check_output(['api_for_cronometer', 'op1', '--help'],
+                                          env=env).decode('utf-8')
+    assert actual_help == expected_help
+
+
 def test_cli_help():
+    request_long_lines = {'COLUMNS': '999', 'LINES': '25'}
+    env = {}
+    env.update(os.environ)
+    env.update(request_long_lines)
     expected_help = """usage: api_for_cronometer [-h] {op1} ...
 
 positional arguments:
@@ -57,9 +84,6 @@ optional arguments:
   -h, --help  show this help message and exit
 """
     # older python versions show arguments like this:
-    alt_expected_help = expected_help.replace('[_ ...]', '[_ [_ ...]]')
-    actual_help = subprocess.check_output(['api_for_cronometer', '--help']).decode('utf-8')
-    try:
-        assert actual_help == expected_help
-    except AssertionError:
-        assert actual_help == alt_expected_help
+    actual_help = subprocess.check_output(['api_for_cronometer', '--help'],
+                                          env=env).decode('utf-8')
+    assert actual_help == expected_help
