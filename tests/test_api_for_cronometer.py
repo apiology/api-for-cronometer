@@ -2,14 +2,14 @@
 
 """Tests for `api_for_cronometer` package."""
 
-import pytest
-
-# from api_for_cronometer import api_for_cronometer
 import argparse
 import os
 import subprocess
-from unittest.mock import patch, call
-from api_for_cronometer.cli import process_args, parse_argv
+from unittest.mock import call, patch
+
+import pytest
+
+from api_for_cronometer.cli import parse_argv, process_args
 
 
 @pytest.fixture
