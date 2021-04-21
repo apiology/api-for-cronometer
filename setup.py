@@ -38,7 +38,7 @@ setup(
     description="Unofficial API CLI/bindings for Cronometer",  # noqa: E501
     entry_points={
         'console_scripts': [
-            'api_for_cronometer=api_for_cronometer.cli:main',
+            'api_for_cronometer=api_for_cronometer._cli:main',
         ],
     },
     install_requires=requirements,
