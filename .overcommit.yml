@@ -32,6 +32,9 @@ PreCommit:
     include:
       - '.circleci/config.yml'
     enabled: true
+PrePush:
+  Pytest:
+    enabled: true
 
 #PostCheckout:
 #  ALL: # Special hook name that customizes all hooks of this type

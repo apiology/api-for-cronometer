@@ -9,7 +9,7 @@ from unittest.mock import call, patch
 
 import pytest
 
-from api_for_cronometer.cli import parse_argv, process_args
+from api_for_cronometer._cli import parse_argv, process_args
 
 
 @pytest.fixture
