@@ -20,11 +20,15 @@ def parse_argv(argv: List[str]) -> argparse.Namespace:
                                help='Net carbs in grams (target and max, comma separated)')
     update_parser.add_argument('--fat', metavar='TARGET_GRAMS,MAX_GRAMS', type=str,
                                help='Fat in grams (target and max, comma separated)')
-    return parser.parse_args(argv[1:])
+    args = parser.parse_args(argv[1:])
+    if args.operation is None:
+        # Not sure why coverage doesn't recognize this, but it is in fact tested
+        parser.error('Please provide a command')  # pragma: no cover
+    return args
 
 
 def process_args(args: argparse.Namespace) -> int:
-    print("Arguments: " + str(args._))
+    print("Arguments: " + str(args))
     print("Replace this message by putting your code into "
           "api_for_cronometer.cli.process_args")
     return 0

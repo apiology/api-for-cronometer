@@ -78,7 +78,7 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # Unit test / coverage reports
-htmlcov/
+cover/
 .tox/
 .coverage
 .coverage.*
@@ -142,3 +142,5 @@ ENV/
 .mypy_cache/
 /types/coverage
 /.ruby-version
+/.dmypy.json
+/typecover

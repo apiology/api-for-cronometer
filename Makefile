@@ -24,12 +24,33 @@ export PRINT_HELP_PYSCRIPT
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-default: typecheck test ## run default typechecking and tests
+default: quicktypecheck clean-coverage test coverage clean-mypy typecheck typecoverage ## run default typechecking and tests
 
+# Does not support coverage reporting and may be unreliable - 'dmypy
+# restart' should clear things up if so.
+#
+quicktypecheck: ## Use dmypy for cached mypy runs.
+	@dmypy run --timeout 300 *.py tests api_for_cronometer
+
+# https://app.circleci.com/pipelines/github/apiology/cookiecutter-pypackage/281/workflows/b85985a9-16d0-42c4-93d4-f965a111e090/jobs/366
 typecheck: ## run mypy against project
-	dmypy --status-file /tmp/.dmypy.json run *.py tests api_for_cronometer
+	mypy --cobertura-xml-report typecover --html-report typecover api_for_cronometer
+	mypy tests
 
-clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
+citypecheck: typecheck ## Run type check from CircleCI
+
+typecoverage: typecheck ## Run type checking and then ratchet coverage in metrics/mypy_high_water_mark
+	@python setup.py mypy_ratchet
+
+clean-mypy: ## Clean out mypy previous results to avoid flaky results
+	@rm -fr .mypy_cache
+
+citypecoverage: typecoverage ## Run type checking, ratchet coverage, and then complain if ratchet needs to be committed
+	@echo "Looking for un-checked-in type coverage metrics..."
+	@git status --porcelain metrics/mypy_high_water_mark
+	@test -z "$$(git status --porcelain metrics/mypy_high_water_mark)"
+
+clean: clean-build clean-pyc clean-test clean-mypy clean-coverage ## remove all build, test, coverage and Python artifacts
 
 clean-build: ## remove build artifacts
 	rm -fr build/
@@ -62,13 +83,16 @@ Gemfile.lock.installed: Gemfile.lock
 
 bundle_install: Gemfile.lock.installed ## Install Ruby dependencies
 
-clean: ## remove all built artifacts
-
 lint: ## check style with flake8
 	flake8 api_for_cronometer tests
 
+test-reports:
+	mkdir test-reports
+
+citest: test-reports test ## Run unit tests from CircleCI
+
 test: ## run tests quickly with the default Python
-	pytest
+	@coverage run --source api_for_cronometer -m pytest
 
 test-all: ## run tests on every Python version with tox
 	tox
@@ -76,11 +100,19 @@ test-all: ## run tests on every Python version with tox
 quality: ## run precommit quality checks
 	bundle exec overcommit --run
 
-coverage: ## check code coverage quickly with the default Python
-	coverage run --source api_for_cronometer -m pytest
-	coverage report -m
-	coverage html
-	$(BROWSER) htmlcov/index.html
+clean-coverage: ## Clean out previous output of test coverage to avoid flaky results from previous runs
+	@rm -fr .coverage
+
+coverage: test ## check code coverage and then ratchet coverage in metrics/coverage_high_water_mark
+	@coverage report -m
+	@coverage html --directory=cover
+	@coverage xml
+	@python setup.py coverage_ratchet
+
+cicoverage: coverage ## check code coverage, ratchet coverage, and then complain if ratchet needs to be committed
+	@echo "Looking for un-checked-in unit test coverage metrics..."
+	@git status --porcelain metrics/coverage_high_water_mark
+	@test -z "$$(git status --porcelain metrics/coverage_high_water_mark)"
 
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/api_for_cronometer.rst
@@ -94,7 +126,10 @@ servedocs: docs ## compile the docs watching for changes
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
 
 release: dist ## package and upload a release
-	twine upload dist/*
+	set -e; \
+	new_version=$$(python3 setup.py --version); \
+	twine upload -u $$(with-op op get item 'PyPI - test' --fields username) -p $$(with-op op get item 'PyPI - test' --fields password) dist/op_env-$${new_version:?}.tar.gz -r testpypi; \
+	twine upload -u $$(with-op op get item 'PyPI' --fields username) -p $$(with-op op get item 'PyPI' --fields password) dist/op_env-$${new_version:?}.tar.gz -r pypi
 
 dist: clean ## builds source and wheel package
 	python setup.py sdist
