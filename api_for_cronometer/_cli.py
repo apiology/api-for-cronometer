@@ -1,11 +1,11 @@
 """Console script for api_for_cronometer."""
 import argparse
 import sys
-from typing import List
+from typing import Dict, List
 
 
 def options_provided(args: argparse.Namespace) -> bool:
-    options = vars(args).copy()
+    options: Dict[str, object] = vars(args).copy()
     options.pop('operation')
     return any([
         value is not None
