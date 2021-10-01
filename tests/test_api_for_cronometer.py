@@ -3,6 +3,7 @@
 """Tests for `api_for_cronometer` package."""
 
 import argparse
+import io
 import os
 import subprocess
 import sys
@@ -46,6 +47,15 @@ def test_parse_argv_run_simple():
     argv = ['api_for_cronometer', 'op1', '123']
     args = parse_argv(argv)
     assert vars(args) == {'operation': 'op1', 'arg1': 123}
+
+
+@patch('sys.stderr', new_callable=io.StringIO)
+def test_parse_argv_show_args_when_no_options_given_to_update_macro_targets(stderr):
+    argv = ['api_for_cronometer', 'update-macro-targets']
+    with pytest.raises(SystemExit):
+        parse_argv(argv)
+    assert 'update-macro-targets [-h]' in stderr.getvalue()
+    assert 'error: Please provide an argument to update-macro-targets' in stderr.getvalue()
 
 
 @patch('api_for_cronometer._cli.parse_argv', autospec=parse_argv)

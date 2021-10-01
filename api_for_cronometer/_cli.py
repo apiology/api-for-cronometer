@@ -1,7 +1,16 @@
 """Console script for api_for_cronometer."""
 import argparse
 import sys
-from typing import List
+from typing import Dict, List
+
+
+def options_provided(args: argparse.Namespace) -> bool:
+    options: Dict[str, object] = vars(args).copy()
+    options.pop('operation')
+    return any([
+        value is not None
+        for name, value in options.items()
+    ])
 
 
 def parse_argv(argv: List[str]) -> argparse.Namespace:
@@ -21,6 +30,8 @@ def parse_argv(argv: List[str]) -> argparse.Namespace:
     update_parser.add_argument('--fat', metavar='TARGET_GRAMS,MAX_GRAMS', type=str,
                                help='Fat in grams (target and max, comma separated)')
     args = parser.parse_args(argv[1:])
+    if args.operation == 'update-macro-targets' and not options_provided(args):
+        update_parser.error('Please provide an argument to update-macro-targets')
     if args.operation is None:
         # Not sure why coverage doesn't recognize this, but it is in fact tested
         parser.error('Please provide a command')  # pragma: no cover
