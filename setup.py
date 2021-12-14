@@ -115,7 +115,7 @@ setup(
     description="Unofficial API CLI/bindings for Cronometer",  # noqa: E501
     entry_points={
         'console_scripts': [
-            'api_for_cronometer=api_for_cronometer._cli:main',
+            'api-for-cronometer=api_for_cronometer._cli:main',
         ],
     },
     cmdclass={
@@ -127,13 +127,13 @@ setup(
     long_description=readme + '\n\n' + history,
     long_description_content_type='text/x-rst',
     include_package_data=True,
-    keywords='api_for_cronometer',
-    name='api_for_cronometer',
+    keywords='api-for-cronometer',
+    name='api-for-cronometer',
     packages=find_packages(include=['api_for_cronometer',
                                     'api_for_cronometer.*']),
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/apiology/api_for_cronometer',
+    url='https://github.com/apiology/api-for-cronometer',
     version='0.1.0',
     zip_safe=False,
 )

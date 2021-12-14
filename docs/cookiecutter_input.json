@@ -6,6 +6,7 @@
     "full_name": "Vince Broz",
     "github_username": "apiology",
     "open_source_license": "MIT license",
+    "package_name": "api_for_cronometer",
     "project_name": "API for Cronometer",
     "project_short_description": "Unofficial API CLI/bindings for Cronometer",
     "project_slug": "api-for-cronometer",

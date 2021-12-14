@@ -24,7 +24,7 @@ export PRINT_HELP_PYSCRIPT
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-default: quicktypecheck clean-coverage test coverage clean-mypy typecheck typecoverage ## run default typechecking and tests
+default: quicktypecheck clean-coverage test coverage clean-mypy typecheck typecoverage quality ## run default typechecking, tests and quality
 
 # Does not support coverage reporting and may be unreliable - 'dmypy
 # restart' should clear things up if so.
@@ -71,7 +71,7 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-requirements_dev.txt.installed: requirements_dev.txt
+requirements_dev.txt.installed: requirements_dev.txt setup.py
 	pip install --disable-pip-version-check -r requirements_dev.txt -e .
 	touch requirements_dev.txt.installed
 
@@ -135,8 +135,8 @@ servedocs: docs ## compile the docs watching for changes
 release: dist ## package and upload a release
 	set -e; \
 	new_version=$$(python3 setup.py --version); \
-	twine upload -u $$(with-op op get item 'PyPI - test' --fields username) -p $$(with-op op get item 'PyPI - test' --fields password) dist/op_env-$${new_version:?}.tar.gz -r testpypi; \
-	twine upload -u $$(with-op op get item 'PyPI' --fields username) -p $$(with-op op get item 'PyPI' --fields password) dist/op_env-$${new_version:?}.tar.gz -r pypi
+	twine upload -u $$(with-op op get item 'PyPI - test' --fields username) -p $$(with-op op get item 'PyPI - test' --fields password) dist/api-for-cronometer-$${new_version:?}.tar.gz -r testpypi; \
+	twine upload -u $$(with-op op get item 'PyPI' --fields username) -p $$(with-op op get item 'PyPI' --fields password) dist/api-for-cronometer-$${new_version:?}.tar.gz -r pypi
 
 dist: clean ## builds source and wheel package
 	python setup.py sdist
