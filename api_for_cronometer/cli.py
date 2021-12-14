@@ -1,4 +1,4 @@
-"""Console script for api_for_cronometer."""
+"""Console script for api-for-cronometer."""
 import argparse
 import sys
 from typing import List
@@ -28,7 +28,7 @@ def process_args(args: argparse.Namespace) -> int:
 
 
 def main(argv: List[str] = sys.argv) -> int:
-    """Console script for api_for_cronometer."""
+    """Console script for api-for-cronometer."""
 
     args = parse_argv(argv)
 

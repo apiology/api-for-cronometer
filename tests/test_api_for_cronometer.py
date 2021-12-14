@@ -44,7 +44,7 @@ def test_process_args(print):
 
 # @pytest.mark.skip(reason="working on main help test first")
 def test_parse_argv_run_simple():
-    argv = ['api_for_cronometer', 'op1', '123']
+    argv = ['api-for-cronometer', 'op1', '123']
     args = parse_argv(argv)
     assert vars(args) == {'operation': 'op1', 'arg1': 123}
 
@@ -63,7 +63,7 @@ def test_cli_op1_help():
     env = {}
     env.update(os.environ)
     env.update(request_long_lines)
-    expected_help = """usage: api_for_cronometer op1 [-h] arg1
+    expected_help = """usage: api-for-cronometer op1 [-h] arg1
 
 Do some kind of operation
 
@@ -77,7 +77,7 @@ options:
         # 3.10 changed the wording a bit
         expected_help = expected_help.replace('options:', 'optional arguments:')
 
-    actual_help = subprocess.check_output(['api_for_cronometer', 'op1', '--help'],
+    actual_help = subprocess.check_output(['api-for-cronometer', 'op1', '--help'],
                                           env=env).decode('utf-8')
     assert actual_help == expected_help
 
@@ -87,10 +87,10 @@ def test_cli_no_command():
     env = {}
     env.update(os.environ)
     env.update(request_long_lines)
-    expected_help = """usage: api_for_cronometer [-h] {op1} ...
-api_for_cronometer: error: Please provide a command
+    expected_help = """usage: api-for-cronometer [-h] {op1} ...
+api-for-cronometer: error: Please provide a command
 """
-    result = subprocess.run(['api_for_cronometer'],
+    result = subprocess.run(['api-for-cronometer'],
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE,
                             env=env)
@@ -103,7 +103,7 @@ def test_cli_help():
     env = {}
     env.update(os.environ)
     env.update(request_long_lines)
-    expected_help = """usage: api_for_cronometer [-h] {op1} ...
+    expected_help = """usage: api-for-cronometer [-h] {op1} ...
 
 positional arguments:
   {op1}
@@ -116,6 +116,6 @@ options:
         # 3.10 changed the wording a bit
         expected_help = expected_help.replace('options:', 'optional arguments:')
 
-    actual_help = subprocess.check_output(['api_for_cronometer', '--help'],
+    actual_help = subprocess.check_output(['api-for-cronometer', '--help'],
                                           env=env).decode('utf-8')
     assert actual_help == expected_help
