@@ -8,7 +8,7 @@
     "open_source_license": "MIT license",
     "project_name": "API for Cronometer",
     "project_short_description": "Unofficial API CLI/bindings for Cronometer",
-    "project_slug": "api_for_cronometer",
+    "project_slug": "api-for-cronometer",
     "pypi_username": "apiology",
     "type_of_github_repo": "public",
     "version": "0.1.0"
