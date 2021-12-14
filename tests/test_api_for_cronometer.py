@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Tests for `api_for_cronometer` package."""
+"""Tests for `api-for-cronometer` package."""
 
 import argparse
 import io
@@ -44,14 +44,14 @@ def test_process_args(print):
 
 @pytest.mark.skip(reason="working on main help test first")
 def test_parse_argv_run_simple():
-    argv = ['api_for_cronometer', 'op1', '123']
+    argv = ['api-for-cronometer', 'op1', '123']
     args = parse_argv(argv)
     assert vars(args) == {'operation': 'op1', 'arg1': 123}
 
 
 @patch('sys.stderr', new_callable=io.StringIO)
 def test_parse_argv_show_args_when_no_options_given_to_update_macro_targets(stderr):
-    argv = ['api_for_cronometer', 'update-macro-targets']
+    argv = ['api-for-cronometer', 'update-macro-targets']
     with pytest.raises(SystemExit):
         parse_argv(argv)
     assert 'update-macro-targets [-h]' in stderr.getvalue()
@@ -73,7 +73,7 @@ def test_cli_update_help():
     env.update(os.environ)
     env.update(request_long_lines)
     expected_help = """\
-usage: api_for_cronometer update-macro-targets [-h] [--energy TARGET_KCALS,MAX_KCALS] \
+usage: api-for-cronometer update-macro-targets [-h] [--energy TARGET_KCALS,MAX_KCALS] \
 [--protein TARGET_GRAMS,MAX_GRAMS] [--net-carbs TARGET_GRAMS,MAX_GRAMS] \
 [--fat TARGET_GRAMS,MAX_GRAMS]
 
@@ -94,7 +94,7 @@ options:
         # 3.10 changed the wording a bit
         expected_help = expected_help.replace('options:', 'optional arguments:')
     # older python versions show arguments like this:
-    actual_help = subprocess.check_output(['api_for_cronometer',
+    actual_help = subprocess.check_output(['api-for-cronometer',
                                            'update-macro-targets',
                                            '--help'],
                                           env=env).decode('utf-8')
@@ -106,10 +106,10 @@ def test_cli_no_command():
     env = {}
     env.update(os.environ)
     env.update(request_long_lines)
-    expected_help = """usage: api_for_cronometer [-h] {update-macro-targets} ...
-api_for_cronometer: error: Please provide a command
+    expected_help = """usage: api-for-cronometer [-h] {update-macro-targets} ...
+api-for-cronometer: error: Please provide a command
 """
-    result = subprocess.run(['api_for_cronometer'],
+    result = subprocess.run(['api-for-cronometer'],
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE,
                             env=env)
@@ -118,7 +118,7 @@ api_for_cronometer: error: Please provide a command
 
 
 def test_cli_help():
-    expected_help = """usage: api_for_cronometer [-h] {update-macro-targets} ...
+    expected_help = """usage: api-for-cronometer [-h] {update-macro-targets} ...
 
 positional arguments:
   {update-macro-targets}
@@ -131,5 +131,5 @@ options:
     if sys.version_info <= (3, 10):
         # 3.10 changed the wording a bit
         expected_help = expected_help.replace('options:', 'optional arguments:')
-    actual_help = subprocess.check_output(['api_for_cronometer', '--help']).decode('utf-8')
+    actual_help = subprocess.check_output(['api-for-cronometer', '--help']).decode('utf-8')
     assert actual_help == expected_help

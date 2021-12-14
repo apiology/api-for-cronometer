@@ -12,7 +12,7 @@ To install API for Cronometer, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install api_for_cronometer
+    $ pip install api-for-cronometer
 
 This is the preferred method to install API for Cronometer, as it will always install the most recent stable release.
 
@@ -32,13 +32,13 @@ You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git://github.com/apiology/api_for_cronometer
+    $ git clone git://github.com/apiology/api-for-cronometer
 
 Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl -OJL https://github.com/apiology/api_for_cronometer/tarball/main
+    $ curl -OJL https://github.com/apiology/api-for-cronometer/tarball/main
 
 Once you have a copy of the source, you can install it with:
 
@@ -47,5 +47,5 @@ Once you have a copy of the source, you can install it with:
     $ python setup.py install
 
 
-.. _Github repo: https://github.com/apiology/api_for_cronometer
-.. _tarball: https://github.com/apiology/api_for_cronometer/tarball/main
+.. _Github repo: https://github.com/apiology/api-for-cronometer
+.. _tarball: https://github.com/apiology/api-for-cronometer/tarball/main

@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = python -msphinx
-SPHINXPROJ    = api_for_cronometer
+SPHINXPROJ    = api-for-cronometer
 SOURCEDIR     = .
 BUILDDIR      = _build
 

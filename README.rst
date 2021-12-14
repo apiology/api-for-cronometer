@@ -3,11 +3,11 @@ API for Cronometer
 ==================
 
 
-.. image:: https://circleci.com/gh/apiology/api_for_cronometer.svg?style=svg
-    :target: https://circleci.com/gh/apiology/api_for_cronometer
+.. image:: https://circleci.com/gh/apiology/api-for-cronometer.svg?style=svg
+    :target: https://circleci.com/gh/apiology/api-for-cronometer
 
-.. image:: https://img.shields.io/pypi/v/api_for_cronometer.svg
-        :target: https://pypi.python.org/pypi/api_for_cronometer
+.. image:: https://img.shields.io/pypi/v/api-for-cronometer.svg
+        :target: https://pypi.python.org/pypi/api-for-cronometer
 
 .. image:: https://readthedocs.org/projects/api-for-cronometer/badge/?version=latest
         :target: https://api-for-cronometer.readthedocs.io/en/latest/?badge=latest

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# api_for_cronometer documentation build configuration file, created by
+# api-for-cronometer documentation build configuration file, created by
 # sphinx-quickstart on Fri Jun  9 13:47:02 2017.
 #
 # This file is execfile()d with the current directory set to its
@@ -102,7 +102,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'api_for_cronometerdoc'
+htmlhelp_basename = 'api-for-cronometerdoc'
 
 
 # -- Options for LaTeX output ------------------------------------------
@@ -129,7 +129,7 @@ latex_elements: Dict[str, str] = {
 # (source start file, target name, title, author, documentclass
 # [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'api_for_cronometer.tex',
+    (master_doc, 'api-for-cronometer.tex',
      'API for Cronometer Documentation',
      "Vince Broz", 'manual'),
 ]
@@ -140,7 +140,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'api_for_cronometer',
+    (master_doc, 'api-for-cronometer',
      'API for Cronometer Documentation',
      [author], 1)
 ]
@@ -152,10 +152,10 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'api_for_cronometer',
+    (master_doc, 'api-for-cronometer',
      'API for Cronometer Documentation',
      author,
-     'api_for_cronometer',
+     'api-for-cronometer',
      'One line description of project.',
      'Miscellaneous'),
 ]
