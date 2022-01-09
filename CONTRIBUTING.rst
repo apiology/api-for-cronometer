@@ -42,14 +42,15 @@ coding it.
 Write Documentation
 ~~~~~~~~~~~~~~~~~~~
 
-API for Cronometer could always use more documentation, whether as part of the
-official API for Cronometer docs, in docstrings, or even on the web in blog posts,
-articles, and such.
+API for Cronometer could always use more documentation, whether as part of
+the official API for Cronometer docs, in docstrings, or even on the web in blog posts, articles,
+and such.
 
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
-The best way to send feedback is to file an issue at https://github.com/apiology/api-for-cronometer/issues.
+The best way to send feedback is to file an issue at
+https://github.com/apiology/api-for-cronometer/issues.
 
 If you are proposing a new feature:
 
