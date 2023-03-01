@@ -11,6 +11,7 @@ from unittest.mock import call, patch
 
 import pytest
 
+import api_for_cronometer
 from api_for_cronometer.cli import main, parse_argv, process_args
 
 
@@ -24,10 +25,10 @@ def response():
     # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
 
 
-def test_content(response):
-    """Sample pytest test function with the pytest fixture as an argument."""
-    # from bs4 import BeautifulSoup
-    # assert 'GitHub' in BeautifulSoup(response.content).title.string
+def test_dunders(response):
+    assert api_for_cronometer.__author__ is not None
+    assert api_for_cronometer.__email__ is not None
+    assert api_for_cronometer.__version__ is not None
 
 
 @patch('builtins.print', autospec=print)
