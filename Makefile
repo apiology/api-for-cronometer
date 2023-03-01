@@ -140,8 +140,8 @@ servedocs: docs ## compile the docs watching for changes
 release: dist ## package and upload a release
 	set -e; \
 	new_version=$$(python3 setup.py --version); \
-	twine upload -u __token__ -p $$(with-op op item get 'PyPI - test' --fields api_key) dist/api-for-cronometer-$${new_version:?}.tar.gz -r testpypi; \
-	twine upload -u __token__ -p $$(with-op op item get 'PyPI' --fields api_key) dist/api-for-cronometer-$${new_version:?}.tar.gz -r pypi
+	twine upload -u __token__ -p $$(op item get 'PyPI - test' --fields api_key) dist/api-for-cronometer-$${new_version:?}.tar.gz -r testpypi; \
+	twine upload -u __token__ -p $$(op item get 'PyPI' --fields api_key) dist/api-for-cronometer-$${new_version:?}.tar.gz -r pypi
 
 dist: clean ## builds source and wheel package
 	python setup.py sdist
