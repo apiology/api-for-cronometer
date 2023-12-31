@@ -1,5 +1,7 @@
 {
+    "_checkout": null,
     "_output_dir": "/Users/broz/src/api-for-cronometer/.git/cookiecutter",
+    "_repo_dir": "/Users/broz/.cookiecutters/cookiecutter-pypackage",
     "_template": "https://github.com/apiology/cookiecutter-pypackage",
     "command_line_interface": "Argparse",
     "create_author_file": "y",

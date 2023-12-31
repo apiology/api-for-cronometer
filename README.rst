@@ -25,7 +25,7 @@ Unofficial API CLI/bindings for Cronometer
 Features
 --------
 
-* TODO
+* (fill this in)
 
 Credits
 -------
