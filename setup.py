@@ -27,7 +27,7 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements: List[str] = []
+requirements: List[str] = ['mechanize']
 
 test_requirements: List[str] = ['pytest>=3']
 
