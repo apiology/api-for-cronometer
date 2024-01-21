@@ -5,29 +5,9 @@ import os
 import mechanize
 import requests
 
-url = 'https://cronometer.com/login'
+from ._headers import headers
 
-headers = {
-    'authority': 'cronometer.com',
-    'accept': '*/*',
-    'accept-language': 'en-US,en;q=0.9,lb;q=0.8',
-    'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-    'dnt': '1',
-    'origin': 'https://cronometer.com',
-    'referer': 'https://cronometer.com/login/',
-    'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-    'sec-ch-ua-mobile': '?0',
-    'sec-ch-ua-platform': '"macOS"',
-    'sec-fetch-dest': 'empty',
-    'sec-fetch-mode': 'cors',
-    'sec-fetch-site': 'same-origin',
-    'sec-gpc': '1',
-    'user-agent':
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) '
-    'AppleWebKit/537.36 (KHTML, like Gecko) '
-    'Chrome/120.0.0.0 Safari/537.36',
-    'x-requested-with': 'XMLHttpRequest',
-}
+url = 'https://cronometer.com/login'
 
 # These two lines enable debugging at httplib level (requests->urllib3->http.client)
 # You will see the REQUEST, including HEADERS and DATA, and RESPONSE with HEADERS but without DATA.
@@ -70,11 +50,14 @@ def login() -> requests.Session:
     # requests_session.headers = mechanize_headers
 
     print("Serialized form data: {}".format(urlencoded_get_data))
+    login_headers = headers.copy()
     print("mechanize headers: {}".format(mechanize_headers))
     # use requests to get response
-    # Set Content-Type = application/x-www-form-urlencoded
 
-    response = requests_session.post(url, headers=headers, data=urlencoded_get_data)
+    # Set Content-Type = application/x-www-form-urlencoded
+    login_headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+    response = requests_session.post(url, headers=login_headers, data=urlencoded_get_data)
 
     if 'redirect' in response.json():
         print("Successfully logged in")
