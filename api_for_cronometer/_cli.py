@@ -3,6 +3,11 @@ import argparse
 import sys
 from typing import Dict, List
 
+import requests
+
+from .api_for_cronometer import update_macro_target
+from .login import login
+
 
 def options_provided(args: argparse.Namespace) -> bool:
     options: Dict[str, object] = vars(args).copy()
@@ -27,8 +32,8 @@ def parse_argv(argv: List[str]) -> argparse.Namespace:
                                help='Protein in grams (target and max, comma separated)')
     update_parser.add_argument('--net-carbs', metavar='TARGET_GRAMS,MAX_GRAMS', type=str,
                                help='Net carbs in grams (target and max, comma separated)')
-    update_parser.add_argument('--fat', metavar='TARGET_GRAMS,MAX_GRAMS', type=str,
-                               help='Fat in grams (target and max, comma separated)')
+    update_parser.add_argument('--saturated', metavar='TARGET_GRAMS,MAX_GRAMS', type=str,
+                               help='Saturated fat in grams (target and max, comma separated)')
     args = parser.parse_args(argv[1:])
     if args.operation == 'update-macro-targets' and not options_provided(args):
         update_parser.error('Please provide an argument to update-macro-targets')
@@ -39,10 +44,27 @@ def parse_argv(argv: List[str]) -> argparse.Namespace:
 
 
 def process_args(args: argparse.Namespace) -> int:
-    print("Arguments: " + str(args))
-    print("Replace this message by putting your code into "
-          "api_for_cronometer.cli.process_args")
+    if args.operation == 'update-macro-targets':
+        requests_session = login()
+        update_macro_targets(requests_session, args)
+    else:
+        raise NotImplementedError(f"implement {args}")
     return 0
+
+
+def update_macro_targets(requests_session: requests.Session, args: argparse.Namespace) -> None:
+    if args.energy is not None:
+        target, max_ = args.energy.split(',')
+        update_macro_target(requests_session, 'energy', target, max_)
+    if args.protein is not None:
+        target, max_ = args.protein.split(',')
+        update_macro_target(requests_session, 'protein', target, max_)
+    if args.net_carbs is not None:
+        target, max_ = args.net_carbs.split(',')
+        update_macro_target(requests_session, 'net_carbs', target, max_)
+    if args.saturated is not None:
+        target, max_ = args.saturated.split(',')
+        update_macro_target(requests_session, 'saturated', target, max_)
 
 
 def main(argv: List[str] = sys.argv) -> int:
