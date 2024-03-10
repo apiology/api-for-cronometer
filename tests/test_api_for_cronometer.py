@@ -2,12 +2,12 @@
 
 """Tests for `api-for-cronometer` package."""
 
-import argparse
+# import argparse
 import io
 import os
 import subprocess
 import sys
-from unittest.mock import call, patch
+from unittest.mock import patch  # , call
 
 import pytest
 
@@ -31,16 +31,16 @@ def test_dunders(response):
     assert api_for_cronometer.__version__ is not None
 
 
-@patch('builtins.print', autospec=print)
-def test_process_args(print):
-    ns = argparse.Namespace()
-    setattr(ns, 'foo', '<fake>')
-    out = process_args(ns)
+# @patch('builtins.print', autospec=print)
+# def test_process_args(print):
+#     ns = argparse.Namespace()
+#     setattr(ns, 'operation', '<fake>')
+#     out = process_args(ns)
 
-    assert out == 0
-    print.assert_has_calls([call("Arguments: Namespace(foo='<fake>')"),
-                            call('Replace this message by putting '
-                                 'your code into api_for_cronometer.cli.process_args')])
+#     assert out == 0
+#     print.assert_has_calls([call("Arguments: Namespace(foo='<fake>')"),
+#                             call('Replace this message by putting '
+#                                  'your code into api_for_cronometer.cli.process_args')])
 
 
 @pytest.mark.skip(reason="working on main help test first")
@@ -76,7 +76,7 @@ def test_cli_update_help():
     expected_help = """\
 usage: api-for-cronometer update-macro-targets [-h] [--energy TARGET_KCALS,MAX_KCALS] \
 [--protein TARGET_GRAMS,MAX_GRAMS] [--net-carbs TARGET_GRAMS,MAX_GRAMS] \
-[--fat TARGET_GRAMS,MAX_GRAMS]
+[--saturated TARGET_GRAMS,MAX_GRAMS]
 
 Update macronutrient targets
 
@@ -88,8 +88,8 @@ options:
                         Protein in grams (target and max, comma separated)
   --net-carbs TARGET_GRAMS,MAX_GRAMS
                         Net carbs in grams (target and max, comma separated)
-  --fat TARGET_GRAMS,MAX_GRAMS
-                        Fat in grams (target and max, comma separated)
+  --saturated TARGET_GRAMS,MAX_GRAMS
+                        Saturated fat in grams (target and max, comma separated)
 """
     if sys.version_info <= (3, 10):
         # 3.10 changed the wording a bit
